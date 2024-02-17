@@ -11,7 +11,9 @@ public class ChunkProcessor {
 
     public void processChunk(List<CsvRecord> chunk) {
         // Process each chunk as needed
+    	System.out.println(chunk.size());
         for (CsvRecord record : chunk) {
+        	//System.err.println(record);
             // Record push into Queue.
         }
     }

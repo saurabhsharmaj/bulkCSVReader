@@ -26,6 +26,11 @@ public class CsvRecord {
 		this.payload = payload;
 	}
 
+	@Override
+	public String toString() {
+		return "CsvRecord [chargePointId=" + chargePointId + ", payload=" + payload + "]";
+	}
+
 	
 
 }

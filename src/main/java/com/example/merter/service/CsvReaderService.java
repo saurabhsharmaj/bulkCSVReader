@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import com.example.merter.vo.CsvContants;
 import com.example.merter.vo.CsvRecord;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
@@ -28,13 +29,14 @@ public class CsvReaderService {
 	private final String filePath;
     private final int chunkSize;
 
-    public CsvReaderService(String filePath, int chunkSize) {
-        this.filePath = filePath;
-        this.chunkSize = chunkSize;
+    public CsvReaderService() {
+        this.filePath = CsvContants.CSV_FILE_NAME;
+        this.chunkSize = CsvContants.CHUNK_SIZE;
     }
 
     public void readInChunks() throws IOException, CsvValidationException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    	File file = ResourceUtils.getFile("classpath:"+filePath);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             CsvToBeanBuilder<CsvRecord> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(CsvRecord.class);
