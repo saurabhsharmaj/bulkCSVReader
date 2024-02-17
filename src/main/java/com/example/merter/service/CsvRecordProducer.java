@@ -1,33 +1,38 @@
-package com.example.merter.schedular;
+package com.example.merter.service;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.example.merter.vo.CsvRecord;
 import com.example.merter.vo.DataQueue;
 
-public class CsvRecordConsumer implements Runnable {
+public class CsvRecordProducer implements Runnable {
+    private static final AtomicInteger idSequence = new AtomicInteger(0);
     private boolean running = false;
     private final DataQueue dataQueue;
 
-    public CsvRecordConsumer(DataQueue dataQueue) {
+    public CsvRecordProducer(DataQueue dataQueue) {
         this.dataQueue = dataQueue;
     }
 
     @Override
     public void run() {
         running = true;
-        consume();
+        produce();
     }
 
     public void stop() {
         running = false;
     }
 
-    public void consume() {
+    public void produce() {
+
         while (running) {
 
-            if (dataQueue.isEmpty()) {
+            if (dataQueue.isFull()) {
                 try {
-                    dataQueue.waitIsNotEmpty();
+                    dataQueue.waitIsNotFull();
                 } catch (InterruptedException e) {
+                    
                     break;
                 }
             }
@@ -37,8 +42,9 @@ public class CsvRecordConsumer implements Runnable {
                 break;
             }
 
-            CsvRecord message = dataQueue.poll();
-            useCsvRecord(message);
+            dataQueue.add(generateMessage());
+
+           
 
             //Sleeping on random time to make it realistic
            try {
@@ -48,13 +54,14 @@ public class CsvRecordConsumer implements Runnable {
 			e.printStackTrace();
 		}
         }
-       
+
+        
     }
 
-    private void useCsvRecord(CsvRecord message) {
-        if (message != null) {
-           
-        }
+    private CsvRecord generateMessage() {
+       
+
+        return null;
     }
 
 }
