@@ -34,9 +34,8 @@ public class CsvReaderService {
         this.chunkSize = CsvContants.CHUNK_SIZE;
     }
 
-    public void readInChunks() throws IOException, CsvValidationException {
-    	File file = ResourceUtils.getFile("classpath:"+filePath);
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+    public void readInChunks(File file) throws IOException, CsvValidationException {
+    	  try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             CsvToBeanBuilder<CsvRecord> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(CsvRecord.class);

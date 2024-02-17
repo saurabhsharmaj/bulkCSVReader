@@ -37,8 +37,8 @@ public class CsvRecordConsumer implements Runnable {
                 break;
             }
 
-            CsvRecord message = dataQueue.poll();
-            useCsvRecord(message);
+            CsvRecord csvRecord = dataQueue.poll();
+            useCsvRecord(csvRecord);
 
             //Sleeping on random time to make it realistic
            try {
@@ -51,9 +51,10 @@ public class CsvRecordConsumer implements Runnable {
        
     }
 
-    private void useCsvRecord(CsvRecord message) {
-        if (message != null) {
+    private void useCsvRecord(CsvRecord csvRecord) {
+        if (csvRecord != null) {
            //save csvRecord to db.
+        	System.out.println("csvRecord consumed:" +csvRecord);
         }
     }
 

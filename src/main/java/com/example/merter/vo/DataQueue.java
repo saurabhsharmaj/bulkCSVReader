@@ -9,7 +9,7 @@ public class DataQueue {
     private final Object IS_NOT_FULL = new Object();
     private final Object IS_NOT_EMPTY = new Object();
 
-    DataQueue(int maxSize) {
+    public DataQueue(int maxSize) {
         this.maxSize = maxSize;
     }
 
